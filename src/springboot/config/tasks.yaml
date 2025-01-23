@@ -1,0 +1,27 @@
+agent_name: SpringBootProjectAgent
+version: 1.0
+description: "This agent helps users create Spring Boot projects using the Spring Initializr API."
+author: "Your Name"
+platform: "CrewAI"
+
+inputs:
+  - name: project_name
+    type: string
+    description: "The name of the Spring Boot project"
+  - name: package_name
+    type: string
+    description: "The package name of the Spring Boot project (e.g., com.example)"
+  - name: dependencies
+    type: list
+    description: "List of Spring Boot dependencies (comma separated)"
+  - name: java_version
+    type: string
+    description: "The version of Java to use (default 11)"
+  - name: language
+    type: string
+    description: "The language for the project (default 'java')"
+
+outputs:
+  - name: result
+    type: string
+    description: "The result message of the project creation process"
