@@ -31,3 +31,32 @@ parse_api_contract:
     Parse and carefully analyze the provided OpenAPI 3.0 contract and extract all the necessary details to define the implementation requirements. Break these requirements down into clear tasks for building the Controller, Service, and Repository layers, along with all the data models needed for each API. Organize this information systematically by API tags to ensure every aspect is addressed.
   expected_output: >
     Detailed tasks for each layer, including endpoint details, data models, database schema, and service methods.
+
+implement_application:
+  description: >
+      Based on the Implementation Requirements for the Spring Boot Application, create a fully functional Spring Boot application with the following steps:
+        - Persistence Layer:
+            - Generate JPA entity classes using the `jakarta.persistence` package (not `javax.persistence`) and add Lombok annotations (`@Getter`, `@Setter`, and optionally `@NoArgsConstructor` and `@AllArgsConstructor`) to entity classes to auto-generate getters and setters.
+            - Create Spring Data JPA repository interfaces.
+            - Append `_entity` to all table names in the `schema.sql` file and JPA `@Table` annotations to avoid clashes with reserved keywords and ensuring that `@Table` annotations match the table names in `schema.sql`.
+            - Write `schema.sql` and `data.sql` files for the H2 database in `/src/main/resources/`.
+            - Compare generated JPA entity classes and created JPA repository interfaces against the task list provided by the tech lead and perform any missing tasks.
+        - Service Layer:
+            - Implement business logic methods to interact with the repository layer for CRUD operations for all API endpoints.
+            - Compare generated service classes against the task list provided by the tech lead and perform any missing tasks.
+        - Controller Layer:
+            - Create REST controllers with appropriate mappings for all API endpoints.
+            - Compare generated controllers against the task list provided by the tech lead and perform any missing tasks.
+        - H2 Database Configuration:
+            - Add the following configuration to `application.properties`:
+              ```
+              spring.datasource.url=jdbc:h2:mem:testdb
+              spring.datasource.driverClassName=org.h2.Driver
+              spring.datasource.username=sa
+              spring.datasource.password=password
+              spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+              spring.h2.console.enabled=true
+              ```
+  expected_output: >
+    A complete and runnable Spring Boot project written to Springboot folder which has the biolerplate code of springboot application and the code is written in the appropriate folder structure, including configuration files, code, and SQL scripts. All persistence-layer code should use `jakarta.persistence`.
+

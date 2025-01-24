@@ -32,6 +32,17 @@ class SpringBootAgent:
             tools=[FileReadTool(file_path='E:/projecttest/code-generation-using-agents/springboot/openapi.yaml')],
             memory=False
         )
+    @agent
+    def software_engineer(self) -> Agent:
+        if 'software_engineer' not in self.agents_config:
+            raise KeyError("Missing configuration for 'software_engineer' in agents_config.")
+        return Agent(
+            config=self.agents_config['software_engineer'],
+            allow_delegation=False,
+            tools=[FileWriterTool()],
+            verbose=True,
+            memory=False
+        )
     @task
     def parse_api_contract(self) -> Task:
         if 'parse_api_contract' not in self.tasks_config:
@@ -40,6 +51,16 @@ class SpringBootAgent:
             config=self.tasks_config['parse_api_contract'],
             agent=self.tech_lead()
         )
+        
+    @task
+    def implement_application(self) -> Task:
+        if 'implement_application' not in self.tasks_config:
+            raise KeyError("Missing configuration for 'implement_application' in tasks_config.")
+        return Task(
+            config=self.tasks_config['implement_application'],
+            agent=self.software_engineer()
+        )
+        
     def generate_spring_boot_project(self, project_name, package_name, dependencies, java_version='11', language='java', build_type='maven'):
         params = {
             'type': f'{build_type}-project',
@@ -52,8 +73,8 @@ class SpringBootAgent:
 
         print(params)
         response = requests.get(self.base_url, params=params)
-        # print("Response Status Code:", response.status_code)
-        # print("Response Content:", response.text)
+        print("Response Status Code:", response.status_code)
+        print("Response Content:", response.text)
 
         if response.status_code == 200:
             zip_file_path = f'{project_name}.zip'
@@ -62,7 +83,7 @@ class SpringBootAgent:
             self.unzip_file(zip_file_path, project_name)
             return f"Spring Boot project {project_name} created successfully!"
         else:
-            return "Failed to create Spring Boot project. Please check your inputs."
+            return "Failed"
     
     def unzip_file(self, zip_file_path, extract_folder):
         # Create the folder where the contents will be extracted

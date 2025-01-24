@@ -16,6 +16,8 @@ def run():
 
     # Generate the Spring Boot project
     result = agent.generate_spring_boot_project(project_name, package_name, dependencies, java_version, language)
+    if(result=="Failed"): 
+        return "Failed"
     print(result)
     
     load_dotenv()
