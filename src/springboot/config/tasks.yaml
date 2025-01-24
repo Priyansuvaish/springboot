@@ -1,27 +1,33 @@
-agent_name: SpringBootProjectAgent
-version: 1.0
-description: "This agent helps users create Spring Boot projects using the Spring Initializr API."
-author: "Your Name"
-platform: "CrewAI"
+# agent_name: SpringBootProjectAgent
+# version: 1.0
+# description: "This agent helps users create Spring Boot projects using the Spring Initializr API."
+# author: "Your Name"
+# platform: "CrewAI"
 
-inputs:
-  - name: project_name
-    type: string
-    description: "The name of the Spring Boot project"
-  - name: package_name
-    type: string
-    description: "The package name of the Spring Boot project (e.g., com.example)"
-  - name: dependencies
-    type: list
-    description: "List of Spring Boot dependencies (comma separated)"
-  - name: java_version
-    type: string
-    description: "The version of Java to use (default 11)"
-  - name: language
-    type: string
-    description: "The language for the project (default 'java')"
+# inputs:
+#   - name: project_name
+#     type: string
+#     description: "The name of the Spring Boot project"
+#   - name: package_name
+#     type: string
+#     description: "The package name of the Spring Boot project (e.g., com.example)"
+#   - name: dependencies
+#     type: list
+#     description: "List of Spring Boot dependencies (comma separated)"
+#   - name: java_version
+#     type: string
+#     description: "The version of Java to use (default 11)"
+#   - name: language
+#     type: string
+#     description: "The language for the project (default 'java')"
 
-outputs:
-  - name: result
-    type: string
-    description: "The result message of the project creation process"
+# outputs:
+#   - name: result
+#     type: string
+#     description: "The result message of the project creation process"
+
+parse_api_contract:
+  description: >
+    Parse and carefully analyze the provided OpenAPI 3.0 contract and extract all the necessary details to define the implementation requirements. Break these requirements down into clear tasks for building the Controller, Service, and Repository layers, along with all the data models needed for each API. Organize this information systematically by API tags to ensure every aspect is addressed.
+  expected_output: >
+    Detailed tasks for each layer, including endpoint details, data models, database schema, and service methods.
